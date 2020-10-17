@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+{% load index_tags %}
+{% load_news as news %}
+{{news}}
+{% endblock %}
+{% block left_side_menu %}
+<div class="left-side-menu--content--item" onmouseover="color_button('left-side-menu--content--item--on-over')"
+                                                onmouseout="color_button('left-side-menu--content--item')">
+    Моя статистика
+</div>
+<div class="left-side-menu--content--item" onmouseover="color_button('left-side-menu--content--item--on-over')"
+                                                onmouseout="color_button('left-side-menu--content--item')">
+    Мои команды
+</div>
+<div class="left-side-menu--content--item" onmouseover="color_button('left-side-menu--content--item--on-over')"
+                                                onmouseout="color_button('left-side-menu--content--item')">
+    Мои проекты
+</div>
+<div class="left-side-menu--content--item" onmouseover="color_button('left-side-menu--content--item--on-over')"
+                                                onmouseout="color_button('left-side-menu--content--item')">
+    Помощь
+</div>
+{% endblock %}
+{% block right_side_menu %}
+texttext
+{% endblock %}

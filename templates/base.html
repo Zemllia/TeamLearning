@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static "css/base.css" %}" rel="stylesheet">
+
+        <script >
+            function color_button(x) {
+                    event.target.className = x;
+            }
+            function redirectToIndex() {
+                window.location.href = '/';
+            }
+        </script>
+    </head>
+
+    <body>
+        {% load index_tags %}
+        <div id="left-side-menu">
+            <div id="left-side-menu--site-name-block" onmouseup="redirectToIndex()">
+                <p>
+                    <b>TeamLearning</b>
+                </p>
+            </div>
+            <div id="left-side-menu--content">
+                {% block left_side_menu %}
+                {% endblock %}
+            </div>
+        </div>
+        <div id="right-side-login-window">
+            {% get_logged_user  as logged_user%}
+            {{logged_user}}
+        </div>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
