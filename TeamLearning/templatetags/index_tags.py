@@ -9,10 +9,20 @@ register = template.Library()
 @register.simple_tag(takes_context=True, name="get_logged_user")
 def get_logged_user(context):
     logout_element = ""
+    print(context['form'])
     if context['request'].user.username != '':
         return mark_safe(context['request'].user.username + "<br><a href = /logout/> выйти </a>")
     else:
-        return mark_safe("<a href = /login/> войти </a>")
+        login_form = """<div id="login-dropdown">
+                    <h1 style="margin-left: 0px">Вход</h1>
+                    <form action="/login/" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{}">
+                        {}
+                        <p><input type="submit" value="вход" style="position: inherit;margin-left: 0px"></p>
+                        <a href="/signup">Регистрация</a>
+                    </form>
+                </div>"""
+        return mark_safe("<a> войти </a>" + login_form.format(context.get('csrf_token'), context['form']))
 
 
 @register.simple_tag(takes_context=True, name="load_news")
@@ -42,9 +52,7 @@ def load_news(context):
 
 def generate_post_text(post):
     post_text = str(post.post_text)
-    print(post.post_text)
     separated_text = post_text.split("\n")
-    print(separated_text)
     final_text = ""
     for item in separated_text:
         final_text += "<p>" + item + "</p>"

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .forms import UserForm, TeamForm, NewsForm
+from .forms import UserForm, TeamForm, NewsForm, ProjectForm
 from .models import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -32,7 +32,7 @@ class TeamAdmin(admin.ModelAdmin):
     form = TeamForm
     list_display = ('name', )
     fieldsets = (
-        (None, {'fields': ('name', 'users', 'description', 'avatar')}),
+        (None, {'fields': ('name', 'creator', 'users', 'description', 'avatar', 'is_open')}),
         # ('Personal info', {'fields': ('last_name', 'first_name', 'middle_name', 'birth_date',)}),
     )
     list_display_links = ('name', )
@@ -41,7 +41,7 @@ class TeamAdmin(admin.ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('name', 'users', 'description', 'avatar')}
+            'fields': ('name', 'creator', 'users', 'description', 'avatar', 'is_open')}
          ),
     )
     search_fields = ('name',)
@@ -70,6 +70,30 @@ class NewsAdmin(admin.ModelAdmin):
     filter_horizontal = ()
 
 
+class ProjectAdmin(admin.ModelAdmin):
+    form = ProjectForm
+    list_display = ('project_name', 'creator', 'start_date', 'dead_line')
+    fieldsets = (
+        (None, {'fields': ('project_name', 'creator', 'project_description', 'teams', 'requests', 'start_date',
+                           'dead_line', 'is_open')}),
+        # ('Personal info', {'fields': ('last_name', 'first_name', 'middle_name', 'birth_date',)}),
+    )
+    list_display_links = ('project_name', 'creator', 'start_date', 'dead_line')
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('project_name', 'creator', 'project_description', 'teams', 'requests', 'start_date',
+                       'dead_line', 'is_open')}
+         ),
+    )
+    search_fields = ('project_name', 'creator', 'start_date')
+    ordering = ('start_date', 'project_name')
+    filter_horizontal = ()
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(Project, ProjectAdmin)

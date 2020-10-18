@@ -6,23 +6,43 @@
         <link href="{% static "css/base.css" %}" rel="stylesheet">
 
         <script >
+            function loginWindowChange() {
+                if (document.getElementById("login-dropdown").style.display == "none") {
+                    document.getElementById("login-dropdown").style.display = "block";
+                }
+                else {
+                    document.getElementById("login-dropdown").style.display = "none";
+                }
+
+            }
             function color_button(x) {
                     event.target.className = x;
             }
             function redirectToIndex() {
                 window.location.href = '/';
             }
+            function leftSideMenuOpenClose() {
+                if (document.getElementById("left-side-menu").style.display == "none") {
+                    document.getElementById("open-left-side-menu").style.marginLeft = "235px";
+                    document.getElementById("open-left-side-menu").style.innerHTML = "<";
+                    document.getElementById("left-side-menu").style.display = "block";
+                }
+                else {
+                    document.getElementById("open-left-side-menu").style.marginLeft = "-5px"
+                    document.getElementById("open-left-side-menu").style.innerHTML = ">";
+                    document.getElementById("left-side-menu").style.display = "none";
+                }
+            }
         </script>
     </head>
 
-    <body>
+    <body >
         {% load index_tags %}
+
+        <div id="open-left-side-menu" onmouseup="leftSideMenuOpenClose()">
+            >
+        </div>
         <div id="left-side-menu">
-            <div id="left-side-menu--site-name-block" onmouseup="redirectToIndex()">
-                <p>
-                    <b>TeamLearning</b>
-                </p>
-            </div>
             <div id="left-side-menu--content">
                 {% block left_side_menu %}
                 {% endblock %}
@@ -30,9 +50,15 @@
             <div id="left-side-menu--footer">
             </div>
         </div>
-        <div id="right-side-login-window">
-            {% get_logged_user  as logged_user%}
-            {{logged_user}}
+
+        <div id="header-plate">
+            <div id="right-side-login-window" onmouseup="loginWindowChange();">
+                {% get_logged_user  as logged_user%}
+                {{logged_user}}
+            </div>
+            <p>
+                <b onmouseup="redirectToIndex()">TeamLearning</b>
+            </p>
         </div>
         <div id="content">
             {% block content %}

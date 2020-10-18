@@ -197,7 +197,8 @@ JET_SIDE_MENU_ITEMS = [  # A list of application or custom item dicts
     {'label': _('Данные'), 'app_label': 'TeamLearning', 'items': [
         {'name': 'user'},
         {'name': 'team'},
-        {'name': 'news'}
+        {'name': 'news'},
+        {'name': 'project'}
         # {'name': 'city'},
         # {'name': 'validationcode'},
         # {'label': _('Analytics'), 'url': 'http://example.com', 'url_blank': True},

@@ -1,7 +1,22 @@
 #content {
-          margin-left: 250px;
-          margin-top: 70px}
+          margin-left: 50%px;
+          margin-top: 140px}
+
+#open-left-side-menu {position: fixed;
+     height: 30px;
+     width: 25px;
+     border-radius: 2px;
+     text-align: center;
+     font-size: 25px;
+     color: white;
+     margin-top: -20px;
+     margin-left: -5px;
+     left:0;
+     background-color: #444555;
+     float: left}
+
 #left-side-menu {position: fixed;
+                 display: none;
                  height: 100%;
                  width: 240px;
                  top: 0;
@@ -9,16 +24,16 @@
                  background-color: #444555;
                  float: left}
 
-#left-side-menu--site-name-block {
+#header-plate {
                  position: fixed;
                  text-align: center;
                  color: white;
                  font-size: 25px;
                  font-family: sans-serif;
                  height: 100px;
-                 width: 240px;
+                 width: 100%;
                  top: 0;
-                 left:0;
+                 left: 0;
                  background-color: #313140;
                  float: left}
 
@@ -31,22 +46,36 @@
                  font-family: sans-serif;
                  height: 1080px;
                  width: 240px;
-                 margin-top: 110px;
+                 margin-top: 130px;
                  left:0;
                  float: left}
 
 
-#right-side-login-window {float: right;
+#right-side-login-window {position: fixed;
                           color: white;
                           text-align: center;
                           font-family: sans-serif;
                           border: 1px;
-                          width: 250px;
-                          height: 50px;
+                          width: 100px;
+                          height: 40px;
                           border-radius: 5px;
-                          margin-top: -60px;
-                          margin-right: 10px;
+                          margin-top: 25px;
+                          margin-left: 90%;
                           background-color: #444555;}
+
+#login-dropdown {position: inherit;
+                 display: none;
+                 color: white;
+                 text-align: center;
+                 font-family: sans-serif;
+                 border: 1px;
+                 margin-left: -110px;
+                 margin-top: 50px;
+                 height: 400px;
+                 width:300px;
+                 border-radius: 5px;
+                 margin-right: 10px;
+                 background-color: #444555;}
 
 .left-side-menu--content--item {background-color: #444555;
                                 font-size: 15px;
@@ -62,14 +91,14 @@
                                 padding: 5px;
                                 height: 50px;}
 .post {
-    margin-left: 65px;
-    width: 90%;
+    margin-left: 200px;
+    width: 80%;
     border-radius: 5px;
     background-color: #505162;
 }
 .post-image {
     position: inherit;
-    margin-left: 11%
+    margin-left: 25%;
 }
 
 .post-header {
@@ -80,6 +109,8 @@
 
 .post-text {
     padding: 7px;
+    width: 60%;
+    margin-left: 100px;
     color: white;
 }
 

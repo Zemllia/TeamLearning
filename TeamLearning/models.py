@@ -80,11 +80,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Team(models.Model):
-    users = models.ManyToManyField(User, related_name='Teams', verbose_name='Участники')
+    creator = models.ForeignKey('User', on_delete=models.CASCADE, related_name='my_teams', verbose_name='Создатель')
+    users = models.ManyToManyField(User, related_name='teams', verbose_name='Участники')
+    requests = models.ManyToManyField(User, related_name='requests', verbose_name='Заявки')
     name = models.CharField(max_length=30, verbose_name='Название команды', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', null=True)
     avatar = models.ImageField(upload_to='TeamLearning/team_avatars/', null=True, blank=True, verbose_name='Фото',
                                default='/TeamLearning/team_avatars/default_group_avatar.png')
+    is_open = models.BooleanField(verbose_name='Открытое вступление?')
 
     def __str__(self):
         return self.name
@@ -93,12 +96,13 @@ class Team(models.Model):
         verbose_name = 'Команда'
         verbose_name_plural = 'Команды'
 
+
 class News(models.Model):
     author = models.CharField(max_length=50, verbose_name='Автор новости')
     post_header = models.CharField(max_length=255, verbose_name='Заголовок')
     post_text = models.TextField(verbose_name='Текст поста')
     post_image = models.ImageField(upload_to='TeamLearning/news_images/', null=True, blank=True, verbose_name='Фото',
-                               default='/TeamLearning/news_images/default_post_image.png')
+                                   default='/TeamLearning/news_images/default_post_image.png')
     date = models.DateTimeField(verbose_name='Дата создания')
 
     def __str__(self):
@@ -107,3 +111,23 @@ class News(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+
+class Project(models.Model):
+    creator = models.ForeignKey('User', on_delete=models.CASCADE, related_name='my_projects', verbose_name='Создатель',
+                                null=False)
+    project_name = models.CharField(max_length=30, verbose_name='Название проекта/хакатона')
+    project_description = models.TextField(verbose_name='Описание проекта/хакатона')
+    teams = models.ManyToManyField('Team', related_name='projects', verbose_name='Команды')
+    requests = models.ManyToManyField('Team', related_name='projects_request',
+                                      verbose_name='Заявки на участие в проекте/хакатоне')
+    start_date = models.DateField(verbose_name='Дата начала проекта', null=False)
+    dead_line = models.DateField(verbose_name='Deadline', null=True)
+    is_open = models.BooleanField(verbose_name='Открытая запись?', null=False, default=False)
+
+    def __str__(self):
+        return self.project_name
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'

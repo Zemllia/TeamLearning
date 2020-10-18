@@ -2,12 +2,14 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
+from django.views.decorators.csrf import csrf_protect
 
 from TeamLearning.forms import CustomUserCreationForm
 from TeamLearning.site_forms import LoginForm
 
-
+@csrf_protect
 def login_view(request):
+    print(1)
     if request.method == 'POST':
         print(request)
         form = LoginForm(request.POST)
@@ -22,12 +24,6 @@ def login_view(request):
                     return HttpResponse('Disabled account')
             else:
                 return HttpResponse('Invalid login')
-    else:
-        form = LoginForm()
-        if request.user.username != '':
-            return redirect('/')
-
-    return render(request, 'TeamLearning/login.html', {'form': form})
 
 
 def logout_view(request):
@@ -57,6 +53,7 @@ def signup_view(request):
 
 
 def index_view(request):
+    form = LoginForm()
     if request.method == 'GET':
         form = LoginForm()
-    return render(request, 'TeamLearning/index.html')
+    return render(request, 'TeamLearning/index.html', {"form": form})

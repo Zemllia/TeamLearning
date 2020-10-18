@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext, gettext_lazy as _
 
 
-from TeamLearning.models import User, Team, News
+from TeamLearning.models import User, Team, News, Project
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -93,10 +93,12 @@ class TeamForm(forms.ModelForm):
         self.fields['users'].required = False
         self.fields['name'].required = True
         self.fields['description'].required = False
+        self.fields['creator'].required = True
+        self.fields['is_open'].reqired = False
 
     class Meta:
         model = Team
-        fields = ('name', 'users', 'description', 'avatar')
+        fields = ('name', 'creator', 'users', 'description', 'avatar', 'is_open')
 
 
 class NewsForm(forms.ModelForm):
@@ -114,3 +116,23 @@ class NewsForm(forms.ModelForm):
     class Meta:
         model = News
         fields = ('author', 'post_header', 'post_text', 'post_image', 'date')
+
+
+class ProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+
+        super(ProjectForm, self).__init__(*args, **kwargs)
+
+        self.fields['creator'].required = True
+        self.fields['project_name'].required = True
+        self.fields['project_description'].required = True
+        self.fields['start_date'].required = True
+        self.fields['teams'].required = False
+        self.fields['requests'].required = False
+        self.fields['dead_line'].required = False
+
+    class Meta:
+        model = Project
+        fields = ('project_name', 'creator', 'project_description', 'teams', 'requests', 'start_date', 'dead_line',
+                  'is_open')
