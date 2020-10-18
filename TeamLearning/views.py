@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 
-
+from TeamLearning.forms import CustomUserCreationForm
 from TeamLearning.site_forms import LoginForm
 
 
@@ -24,7 +24,6 @@ def login_view(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-        print(request.user.username)
         if request.user.username != '':
             return redirect('/')
 
@@ -34,6 +33,27 @@ def login_view(request):
 def logout_view(request):
     auth_logout(request)
     return redirect('/')
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            print(1)
+            form.save()
+        else:
+            return render(request, 'TeamLearning/signup.html', {'form': form})
+        username = form.cleaned_data.get('username')
+        email = form.cleaned_data.get('email')
+        my_password = form.cleaned_data.get('password1')
+        user = authenticate(email=email, password=my_password)
+        login(request, user)
+        return redirect('/')
+    else:
+        if request.user.username != '':
+            return redirect('/')
+        form = CustomUserCreationForm()
+        return render(request, 'TeamLearning/signup.html', {'form': form})
 
 
 def index_view(request):

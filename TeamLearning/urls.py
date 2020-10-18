@@ -23,6 +23,7 @@ import TeamLearning.api.v1.urls
 urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('signup/', views.signup_view, name='signup'),
     path('', views.index_view, name='index'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),

@@ -44,11 +44,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField('Дата создания', default=timezone.now)
-    username = models.CharField('Никнейм (показывается на сайте)', max_length=30, null=True, blank=False)
+    username = models.CharField('Никнейм (показывается на сайте)', max_length=30, null=True, blank=False, unique=True)
     first_name = models.CharField('Имя', max_length=30, blank=True)
     last_name = models.CharField('Фамилия', max_length=30, blank=True)
     avatar = models.ImageField(upload_to='TeamLearning/user_avatars/', null=True, blank=True, verbose_name='Фото',
-                               default='/TeamLearning/user_avatars/default_avatar.png')
+                               default='/TeamLearning/user_avatars/default_group_avatar.png')
 
     professionalism_coefficient = models.IntegerField(verbose_name='Коэффициент профессионализма', default=5,
                                                       null=False, blank=False)
@@ -84,7 +84,7 @@ class Team(models.Model):
     name = models.CharField(max_length=30, verbose_name='Название команды', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', null=True)
     avatar = models.ImageField(upload_to='TeamLearning/team_avatars/', null=True, blank=True, verbose_name='Фото',
-                               default='/TeamLearning/team_avatars/default_avatar.png')
+                               default='/TeamLearning/team_avatars/default_group_avatar.png')
 
     def __str__(self):
         return self.name

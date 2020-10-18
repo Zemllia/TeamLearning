@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='team',
             name='avatar',
-            field=models.ImageField(blank=True, default='/TeamLearning/team_avatars/default_avatar.png', null=True, upload_to='TeamLearning/team_avatars/', verbose_name='Фото'),
+            field=models.ImageField(blank=True, default='/TeamLearning/team_avatars/default_group_avatar.png', null=True, upload_to='TeamLearning/team_avatars/', verbose_name='Фото'),
         ),
         migrations.AddField(
             model_name='team',
@@ -72,6 +72,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='avatar',
-            field=models.ImageField(blank=True, default='/TeamLearning/user_avatars/default_avatar.png', null=True, upload_to='TeamLearning/user_avatars/', verbose_name='Фото'),
+            field=models.ImageField(blank=True, default='/TeamLearning/user_avatars/default_group_avatar.png', null=True, upload_to='TeamLearning/user_avatars/', verbose_name='Фото'),
         ),
     ]

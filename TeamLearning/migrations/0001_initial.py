@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(blank=True, max_length=30, verbose_name='Имя')),
                 ('last_name', models.CharField(blank=True, max_length=30, verbose_name='Фамилия')),
                 ('identifier', models.CharField(max_length=255, verbose_name='Идентификатор')),
-                ('avatar', models.ImageField(blank=True, default='/diplomv/user_avatars/default_avatar.png', null=True, upload_to='diplomv/user_avatars/', verbose_name='Фото')),
+                ('avatar', models.ImageField(blank=True, default='/diplomv/user_avatars/default_group_avatar.png', null=True, upload_to='diplomv/user_avatars/', verbose_name='Фото')),
                 ('uuid', models.CharField(max_length=255, verbose_name='UUID')),
                 ('validate_code', models.CharField(max_length=6, null=True, verbose_name='Код валидации при регистрации')),
                 ('password_change_code', models.CharField(max_length=6, null=True, verbose_name='Код для смены пароля')),
